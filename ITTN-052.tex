@@ -1,6 +1,7 @@
 \documentclass[PMO,authoryear,toc]{lsstdoc}
+\usepackage{ragged2e}
 % lsstdoc documentation: https://lsst-texmf.lsst.io/lsstdoc.html
-\input{meta}
+%\input{meta}
 
 % Package imports go here.
 
@@ -22,7 +23,7 @@ Heinrich Reinking
 \setDocRef{ITTN-052}
 \setDocUpstreamLocation{\url{https://github.com/lsst-it/ittn-052}}
 
-\date{\vcsDate}
+\date{\today}
 
 % Optional: name of the document's curator
 % \setDocCurator{The Curator of this Document}
@@ -36,7 +37,7 @@ The scope of this document is to establish a procedure for powering off all IT e
 % Fields: VERSION, DATE, DESCRIPTION, OWNER NAME.
 % See LPM-51 for version number policy.
 \setDocChangeRecord{%
-  \addtohist{1}{YYYY-MM-DD}{Unreleased.}{Heinrich Reinking}
+  \addtohist{1}{2021-11-04}{First Commit}{Heinrich Reinking}
 }
 
 
@@ -49,15 +50,15 @@ The scope of this document is to establish a procedure for powering off all IT e
 
 % ADD CONTENT HERE
 % You can also use the \input command to include several content files.
-
+\input{poweroff.tex}
 \appendix
 % Include all the relevant bib files.
 % https://lsst-texmf.lsst.io/lsstdoc.html#bibliographies
-\section{References} \label{sec:bib}
 \renewcommand{\refname}{} % Suppress default Bibliography section
 \bibliography{local,lsst,lsst-dm,refs_ads,refs,books}
 
 % Make sure lsst-texmf/bin/generateAcronyms.py is in your path
+\newpage
 \section{Acronyms} \label{sec:acronyms}
 \input{acronyms.tex}
 % If you want glossary uncomment below -- comment out the two lines above
