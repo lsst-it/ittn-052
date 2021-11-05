@@ -1,26 +1,59 @@
 \section{Power Off Sequence}
 \justify{In order to accomplish a safe and regulated shut down of all devices - servers, switches, PDUs, and others - a sequence must be established. The goal is to control, until the very last minute, all devices remotely.}
 \subsection{Phase 1}
+\begin{itemize}
+  \item Make sure all iDRAC interfaces are in fix IP
+  \item Rollout replica 0 Antu k8s
+  \item Power Off through iDRAC antu0[1..9].ls.lsst.org
+  \item Power Off through iDRAC ls-dtn0[1,2].ls.lsst.org
+  \item Power Off through iDRAC ls-efdetl01.ls.lsst.org
+  \item Power Off through iDRAC ls-fwdr02.ls.lsst.org
+  \item De-energized at the PDU the server's power socket.
+\end{itemize}
 
 \newpage
 \subsection{Phase 2}
+\begin{itemize}
+  \item Rollout replica 0 Kueyen k8s
+  \item Power Off through iDRAC kueyen0[1..4].ls.lsst.org
+  \item De-energized at the PDU the server's power socket.
+\end{itemize}
 
 \newpage
 \subsection{Phase 3}
+\begin{itemize}
+  \item Rollout replica 0 Ruka k8s 
+  \item Power Off through iDRAC ruka0[1..6].ls.lsst.org
+  \item De-energized at the PDU the server's power socket.
+\end{itemize}
 
 \newpage
 \subsection{Phase 4}
 
 \newpage
 \subsection{Phase 5}
+\begin{itemize}
+  \item Power Off all VMs at vCenter BDC-B3 site.
+  \item Move to Maintenance Mode, one by one, vsphere0[4,5,6].ls.lsst.org
+  \item Once in Maintenance Mode, power off vsphere0[4,5,6].ls.lsst.org
+  \item Power Off though iDRAC Core LS Cluster
+\end{itemize}
 
 \newpage
 \subsection{Phase 6}
+\begin{itemize}
+  \item Disconnect Circuit Breaker for all PDUs. IPMI Switches must not be unplugged.
+\end{itemize}
 
 \newpage
 \section{Power On Sequence}
 \justify{If done properly, according to "Power Off Sequence", powering back on all devices can be done remotely, and following the invert order than the Power Off sequence}
 \subsection{Phase 1}
+\begin{itemize}
+  \item Wait until bdc-dis01 comes up
+  \item Recover communication to IPMI Switches
+  \item Recover communication to PDU's remote access  
+\end{itemize}
 
 \newpage
 \subsection{Phase 2}
@@ -28,12 +61,28 @@
 \newpage
 \subsection{Phase 3}
 
-\newpage
 \subsection{Phase 4}
+\begin{itemize}
+  \item Energized the server's power socket at the PDU.
+  \item Power On through iDRAC ruka0[1..6].ls.lsst.org
+  \item Reroll Ruka k8s  
+\end{itemize}
 
 \newpage
 \subsection{Phase 5}
+\begin{itemize}
+  \item Energized the server's power socket at the PDU.
+  \item Power On through iDRAC kueyen0[1..4].ls.lsst.org
+  \item Reroll Kueyen k8s  
+\end{itemize}
 
 \newpage
 \subsection{Phase 6}
-
+\begin{itemize}
+  \item Energized the server's power socket at the PDU.
+  \item Power On through iDRAC antu0[1..9].ls.lsst.org
+  \item Power On through iDRAC ls-dtn0[1,2].ls.lsst.org
+  \item Power On through iDRAC ls-efdetl01.ls.lsst.org
+  \item Power On through iDRAC ls-fwdr02.ls.lsst.org
+  \item Reroll Antu k8s
+\end{itemize}
