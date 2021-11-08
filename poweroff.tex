@@ -2,7 +2,7 @@
 \justify{In order to accomplish a safe and regulated shut down of all devices - servers, switches, PDUs, and others - a sequence must be established. The goal is to control, until the very last minute, all devices remotely.}
 \subsection{Phase 1}
 \begin{itemize}
-  \item Make sure all iDRAC interfaces are in fix IP
+  \item Make sure all iDRAC interfaces are in fixed IP
   \item Rollout replica 0 Antu k8s
   \item Power Off through iDRAC antu0[1..9].ls.lsst.org
   \item Power Off through iDRAC ls-dtn0[1,2].ls.lsst.org
@@ -37,6 +37,7 @@
   \item Move to Maintenance Mode, one by one, vsphere0[4,5,6].ls.lsst.org
   \item Once in Maintenance Mode, power off vsphere0[4,5,6].ls.lsst.org
   \item Power Off though iDRAC Core LS Cluster
+  \item De-energized at the PDU the server's power socket.
 \end{itemize}
 
 \newpage
@@ -50,6 +51,7 @@
 \justify{If done properly, according to "Power Off Sequence", powering back on all devices can be done remotely, and following the invert order than the Power Off sequence}
 \subsection{Phase 1}
 \begin{itemize}
+  \item Enable the Circuit Breaker.
   \item Wait until bdc-dis01 comes up
   \item Recover communication to IPMI Switches
   \item Recover communication to PDU's remote access  
@@ -57,6 +59,12 @@
 
 \newpage
 \subsection{Phase 2}
+\begin{itemize}
+  \item Enable core cluster server's power socket through remote PDU access.
+  \item Enable vsphere[4,5,6].ls.lsst.org cluster server's power socket through remote PDU access.
+  \item Disable Maintenance Mode, one by one, over vCenter cluster BDC-B3.
+  \item Check that all VMs communications have been recovered.
+\end{itemize}
 
 \newpage
 \subsection{Phase 3}
